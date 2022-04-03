@@ -95,6 +95,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         String locatedCountry = company.getLocatedCountry();
         String newLocatedCountry = dto.getLocatedCountry();
+
         if (!Objects.equals(locatedCountry, newLocatedCountry)) {
             company.setLocatedCountry(newLocatedCountry);
             log.info("Company with id = {} changed name from {} to {}",
