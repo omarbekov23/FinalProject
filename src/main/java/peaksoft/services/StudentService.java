@@ -1,7 +1,7 @@
 package peaksoft.services;
 
 import peaksoft.dto.StudentDto;
-import peaksoft.models.Response;
+import peaksoft.dto.response.Response;
 import peaksoft.models.Student;
 
 import java.util.List;

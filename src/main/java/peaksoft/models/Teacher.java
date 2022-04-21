@@ -24,9 +24,6 @@ public class Teacher {
     private String lastName;
     private String email;
 
-    @Transient
-    private Long courseId;
-
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JsonIgnore
     private Course course;

@@ -6,7 +6,7 @@ import peaksoft.dto.GroupDto;
 import peaksoft.exceptions.BadRequestException;
 import peaksoft.exceptions.NotFoundException;
 import peaksoft.models.Group;
-import peaksoft.models.Response;
+import peaksoft.dto.response.Response;
 import peaksoft.services.CourseService;
 import peaksoft.services.GroupService;
 import java.util.List;
@@ -16,7 +16,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/group")
+@RequestMapping("/api/group")
 public class GroupApi {
 
     private final GroupService groupService;
@@ -32,15 +32,14 @@ public class GroupApi {
         return groupService.findAllGroup();
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/getById{id}")
     public Group getById(@PathVariable("id")Long id){
         return groupService.getById(id);
     }
 
     @PatchMapping("/update/{id}")
     public Response update(@RequestBody GroupDto group, @PathVariable("id") Long id) {
-//        group.setCourse(courseService.getById(group.getCourseId()));
-        return groupService.updateById(id, group);
+        return groupService.updateById(id,group);
     }
 
     @DeleteMapping("/delete/{id}")

@@ -1,4 +1,4 @@
-package peaksoft.dto.mapper;
+package peaksoft.mapper;
 
 import lombok.Getter;
 import org.springframework.stereotype.Component;
@@ -15,6 +15,7 @@ public class GroupMapper {
         group.setGroupName(dto.getGroupName());
         group.setDateOfStart(dto.getDateOfStart());
         group.setDateOfFinish(dto.getDateOfFinish());
+
         return group;
     }
 }

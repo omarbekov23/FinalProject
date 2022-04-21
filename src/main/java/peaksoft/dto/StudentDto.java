@@ -7,7 +7,8 @@ import peaksoft.models.enam.StudyFormat;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-@Getter @Setter
+@Getter
+@Setter
 public class StudentDto {
 
     @NotBlank

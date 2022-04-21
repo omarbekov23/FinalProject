@@ -2,7 +2,7 @@ package peaksoft.services;
 
 import peaksoft.dto.CompanyDto;
 import peaksoft.models.Company;
-import peaksoft.models.Response;
+import peaksoft.dto.response.Response;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface CompanyService {
 
     Response deleteById(Long id);
 
-    Company getById(Long id);
+    Company findById(long Id);
 
     List<Company> findAllCompany();
 

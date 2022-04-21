@@ -2,7 +2,7 @@ package peaksoft.services;
 
 import peaksoft.dto.GroupDto;
 import peaksoft.models.Group;
-import peaksoft.models.Response;
+import peaksoft.dto.response.Response;
 
 import java.util.List;
 

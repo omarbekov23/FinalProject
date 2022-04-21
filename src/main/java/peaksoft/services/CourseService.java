@@ -2,13 +2,13 @@ package peaksoft.services;
 
 import peaksoft.dto.CourseDto;
 import peaksoft.models.Course;
-import peaksoft.models.Response;
+import peaksoft.dto.response.Response;
 
 import java.util.List;
 
 public interface CourseService {
 
-    Response saveCourse(CourseDto course,Long id);
+    Response saveCourse(CourseDto course, Long id);
 
     Response deleteById(Long id);
 

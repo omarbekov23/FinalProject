@@ -1,4 +1,4 @@
-package peaksoft.dto.mapper;
+package peaksoft.mapper;
 
 import org.springframework.stereotype.Component;
 import peaksoft.dto.StudentDto;

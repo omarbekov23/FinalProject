@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import peaksoft.dto.CompanyDto;
-import peaksoft.dto.mapper.CompanyMapper;
+import peaksoft.mapper.CompanyMapper;
 import peaksoft.exceptions.BadRequestException;
 import peaksoft.exceptions.NotFoundException;
 import peaksoft.models.Company;
-import peaksoft.models.Response;
-import peaksoft.repositorys.CompanyRepository;
+import peaksoft.dto.response.Response;
+import peaksoft.repositories.CompanyRepository;
 import peaksoft.services.CompanyService;
 
 import javax.transaction.Transactional;
@@ -20,7 +20,6 @@ import static org.springframework.http.HttpStatus.*;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
@@ -28,8 +27,6 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Response saveCompany(CompanyDto dto) {
-        String companyName = dto.getCompanyName();
-        checkCompanyName(companyName);
         Company company = companyMapper.create(dto);
         Company saveCompany = companyRepository.save(company);
         return Response.builder()
@@ -39,20 +36,9 @@ public class CompanyServiceImpl implements CompanyService {
                 .build();
     }
 
-    private void checkCompanyName(String companyName) {
-        boolean exists = companyRepository.existsByCompanyName(companyName);
-        if (exists) {
-            log.warn("company with companyName = {} already exists", companyName);
-            throw new BadRequestException(
-                    "company with companyName = " + companyName + " already exists"
-            );
-        }
-    }
-
     @Override
     public Response deleteById(Long id) {
         companyRepository.deleteById(id);
-        log.info("Student with id = {} has successfully deleted", id);
         String message = String.format("Company with id = %s has successfully deleted", id);
         return Response.builder()
                 .httpStatus(OK)
@@ -61,23 +47,18 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public Company getById(Long id) {
-        Company company = companyRepository.findById(id)
+    public Company findById(long Id) {
+        return companyRepository.findById(Id)
                 .orElseThrow(() -> {
-                    log.error("student with id = {} does not exists", id);
                     throw new NotFoundException(
-                            String.format("student with id = %s does not exists", id)
+                            String.format("Company with id = %s does not exists", Id)
                     );
                 });
-        log.info("founded student with id = {}", id);
-        return company;
     }
 
     @Override
     public List<Company> findAllCompany() {
-        List<Company> allCompany = companyRepository.findAll();
-        log.info("founded {} company", allCompany.size());
-        return allCompany;
+        return companyRepository.findAll();
     }
 
     @Override
@@ -89,8 +70,6 @@ public class CompanyServiceImpl implements CompanyService {
         String newCompanyName = dto.getCompanyName();
         if (!Objects.equals(companyName, newCompanyName)) {
             company.setCompanyName(newCompanyName);
-            log.info("Company with id = {} changed name from {} to {}",
-                    id, companyName, newCompanyName);
         }
 
         String locatedCountry = company.getLocatedCountry();
@@ -98,8 +77,6 @@ public class CompanyServiceImpl implements CompanyService {
 
         if (!Objects.equals(locatedCountry, newLocatedCountry)) {
             company.setLocatedCountry(newLocatedCountry);
-            log.info("Company with id = {} changed name from {} to {}",
-                    id, locatedCountry, newLocatedCountry);
         }
 
         String message = String.format("Company with companyId = %s has successfully updated", id);

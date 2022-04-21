@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +21,10 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String groupName;
-    private String dateOfStart;
-    private String dateOfFinish;
 
-    @Transient
-    private Long courseId;
+    private String dateOfStart;
+
+    private String dateOfFinish;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JsonIgnore

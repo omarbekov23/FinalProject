@@ -6,9 +6,8 @@ import peaksoft.dto.CompanyDto;
 import peaksoft.exceptions.BadRequestException;
 import peaksoft.exceptions.NotFoundException;
 import peaksoft.models.Company;
-import peaksoft.models.Response;
+import peaksoft.dto.response.Response;
 import peaksoft.services.CompanyService;
-
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -21,27 +20,27 @@ public class CompanyApi {
 
     private final CompanyService service;
 
-    @GetMapping()
+    @GetMapping("/getAll")
     public List<Company> getAllCompany() {
         return service.findAllCompany();
     }
 
-    @PostMapping()
+    @PostMapping("/save")
     public Response saveCompany(@RequestBody CompanyDto company) {
         return service.saveCompany(company);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/getById/{id}")
     public Company getById(@PathVariable("id") Long id) {
-        return (service.getById(id));
+        return (service.findById(id));
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/update/{id}")
     public Response update(@RequestBody CompanyDto company, @PathVariable("id") Long id) {
         return service.updateById(id, company);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/delete/{id}")
     public Response delete(@PathVariable("id") Long id) {
        return service.deleteById(id);
     }
@@ -53,15 +52,6 @@ public class CompanyApi {
         return Response.builder()
                 .httpStatus(NOT_FOUND)
                 .message(notFoundException.getMessage())
-                .build();
-    }
-
-    @ExceptionHandler(BadRequestException.class)
-    @ResponseStatus(BAD_REQUEST)
-    public Response handleBadRequestException(BadRequestException badRequestException) {
-        return Response.builder()
-                .httpStatus(BAD_REQUEST)
-                .message(badRequestException.getMessage())
                 .build();
     }
 }

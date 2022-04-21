@@ -14,4 +14,5 @@ public class CompanyDto {
 
     @NotBlank
     private String locatedCountry;
+
 }

@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
+@Getter
+@Setter
 @RequiredArgsConstructor
 @Entity
 @Table(name = "courses")
@@ -19,15 +21,12 @@ public class Course {
     private Long id;
     private String courseName;
     private String duration;
-//    @Transient
-//    private Long companyId;
 
     @ManyToOne
     @JsonIgnore
     private Company company;
 
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "courseList", cascade = {CascadeType.MERGE, CascadeType.REMOVE} )
-    @Fetch(value = FetchMode.SUBSELECT)
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "courseList", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private List<Group> groupList;
 
     @OneToOne(mappedBy = "course",
@@ -35,7 +34,7 @@ public class Course {
     private Teacher teacher;
 
     @JsonIgnore
-    public void setGroup(Group group){
+    public void setGroup(Group group) {
         if (groupList == null) {
             groupList = new ArrayList<>();
         }

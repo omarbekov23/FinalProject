@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import peaksoft.exceptions.BadRequestException;
-import peaksoft.models.Response;
+import peaksoft.dto.response.Response;
 import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice

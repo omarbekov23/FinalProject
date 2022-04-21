@@ -1,4 +1,4 @@
-package peaksoft.dto.mapper;
+package peaksoft.mapper;
 
 import org.springframework.stereotype.Component;
 import peaksoft.dto.CourseDto;
@@ -14,6 +14,7 @@ public class CourseMapper {
         Course course = new Course();
         course.setCourseName(dto.getCourseName());
         course.setDuration(dto.getDuration());
+
         return course;
     }
 }

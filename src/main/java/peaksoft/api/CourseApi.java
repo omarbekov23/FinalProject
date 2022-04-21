@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import peaksoft.dto.CourseDto;
 import peaksoft.exceptions.BadRequestException;
 import peaksoft.exceptions.NotFoundException;
+
 import peaksoft.models.Course;
-import peaksoft.models.Response;
-import peaksoft.services.CompanyService;
+import peaksoft.dto.response.Response;
 import peaksoft.services.CourseService;
 
 import java.util.List;
@@ -16,24 +16,23 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/api/course")
 @AllArgsConstructor
 public class CourseApi {
 
     private final CourseService courseService;
-    private final CompanyService companyService;
 
     @PostMapping("/save/{companyId}")
-    public Response save(@RequestBody CourseDto course, @PathVariable("companyId") Long companyId) {
-        return courseService.saveCourse(course,companyId);
+    public Response saveCourse(@RequestBody CourseDto course,@PathVariable("companyId") Long id) {
+        return courseService.saveCourse(course,id);
     }
 
-    @GetMapping()
+    @GetMapping("/getAll")
     public List<Course> findAllCourse() {
         return courseService.findAllCourse();
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/getById/{id}")
     public Course getById(@PathVariable("id") Long id) {
         return courseService.getById(id);
     }

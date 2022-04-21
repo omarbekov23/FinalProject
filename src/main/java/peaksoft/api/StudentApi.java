@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import peaksoft.dto.StudentDto;
 import peaksoft.exceptions.BadRequestException;
 import peaksoft.exceptions.NotFoundException;
-import peaksoft.models.Response;
+import peaksoft.dto.response.Response;
 import peaksoft.models.Student;
 import peaksoft.services.GroupService;
 import peaksoft.services.StudentService;
@@ -16,7 +16,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/api/student")
 @AllArgsConstructor
 public class StudentApi {
     private final StudentService studentService;
@@ -32,7 +32,7 @@ public class StudentApi {
         return studentService.findAllStudent();
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/getById/{id}")
     public Student getById(@PathVariable("id")Long id){
         return studentService.getById(id);
     }
